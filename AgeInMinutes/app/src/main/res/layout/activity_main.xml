@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:text="AGE"
         android:padding="10dp"
-        android:background="@color/textBlue"
+        android:background="@color/textBGColor"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -44,12 +44,50 @@
         />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonDatePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:text="Select Date"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         android:backgroundTint="@color/buttonBGColor"
+        />
+
+    <TextView
+        android:id="@+id/tvSelectedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="11/11/1111"
+        android:textColor="@color/textBlue"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Selected Date"
+        android:textColor="@color/textGrayedOut"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tvDifferenceInMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="0"
+        android:textColor="@color/textBlue"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1sp"
+        android:text="Minutes Since Dae"
+        android:textColor="@color/textGrayedOut"
+        android:textSize="14sp"
         />
 
 
