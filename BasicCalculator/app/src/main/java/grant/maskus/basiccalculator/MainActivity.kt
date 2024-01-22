@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
     private var btnCLR :Button? = null
     private var value1 :Long = 0
     private var value2 :Long = 0
+    private var operator :String? = null
+    private var operatorEntered :Boolean = false
+    private var operatorEntered2 :Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,6 +130,11 @@ class MainActivity : AppCompatActivity() {
                 onClear()
             }
         }
+        btnEqual?.setOnClickListener {
+            btnEqual?.let {
+                onEquals()
+            }
+        }
 
     }
 
@@ -137,32 +145,96 @@ class MainActivity : AppCompatActivity() {
              temp = tvInputField?.text.toString()
         }
 
-        if (temp?.length!! <= 11) {
-            tvInputField?.let {
+        if(!operatorEntered){
+            if (temp?.length!! <= 11) {
+                tvInputField?.let {
+                    if (tvInputField?.text?.toString().equals("0")) {
+                        tvInputField?.text = buttonValue
+                    } else {
+                        tvInputField?.append(buttonValue)
+                    }
+                }
+                temp = tvInputField?.text.toString()
+                println("onDigit: appending... at length ${temp!!.length}")
+                value1 = temp!!.toLong()!!
+                println("value1: $value1")
+            }else{
+                println("value length too long for screen.")
+            }
+        }else{
+            if (operatorEntered2){
+                tvInputField?.text = "0"
+                operatorEntered2 = false
+            }
+            if (temp?.length!! <= 11) {
                 if (tvInputField?.text?.toString().equals("0")) {
+                    println("tvInputfield: $temp, buttonValue: $buttonValue")
                     tvInputField?.text = buttonValue
+                    println("tvInputField: $temp")
                 } else {
                     tvInputField?.append(buttonValue)
+
+                    println("onDigit: appending... at length ${temp!!.length}")
                 }
+                temp = tvInputField?.text.toString()
+                value2 = temp!!.toLong()!!
+                println("value2: $value2")
+            }else{
+                println("value length too long for screen.")
             }
-            println("onDigit: appending... at length ${temp!!.length}")
-            value1 = temp!!.toLong()!!
-            println(value1)
-        }else{
-            println("value length too long for screen.")
         }
+
     }
 
     fun onOperator(buttonValue: String){
-        
+        if (!operatorEntered || !operatorEntered2){
+            tvInputField?.append(buttonValue)
+            operator = buttonValue
+            operatorEntered = true
+            operatorEntered2 = true
+        }
 
     }
 
-    fun onEquals(buttonValue: String){
+    fun onEquals(){
+        println("onEquals")
+        if(operatorEntered){
+            operatorEntered = false
+            operator?.let {
+                if (operator?.equals("+")!!){
+                    var tempSum = value1+value2
+                    println("value1: $value1, value2: $value2, tempSum: $tempSum")
+                    tvInputField?.text = tempSum.toString()
 
+                }else if (operator?.equals("-")!!){
+                    var tempDiff = value1-value2
+                    println("value1: $value1, value2: $value2, tempDiff: $tempDiff")
+                    tvInputField?.text = tempDiff.toString()
+
+                }else if (operator?.equals("*")!!){
+                    var tempMult = value1*value2
+                    println("value1: $value1, value2: $value2, tempMult: $tempMult")
+                    tvInputField?.text = tempMult.toString()
+
+                }else if (operator?.equals("/")!!){
+                    var tempQuotient :Double = 0.0
+                    if (value2.toInt() != 0){
+                        tempQuotient = (value1/value2).toDouble()
+                    }else{
+                        tempQuotient = 0.0
+                    }
+                    println("value1: $value1, value2: $value2, tempQuotient: $tempQuotient")
+                    tvInputField?.text = tempQuotient.toString()
+                }
+            }
+
+        }else{
+            return
+        }
     }
 
     fun onClear(){
+        operatorEntered = false
         tvInputField?.text = "0"
         value1 = 0
         value2 = 0
